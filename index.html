@@ -8,12 +8,13 @@
         box-sizing: border-box;
     }
 
-    .action-item.person {
+    .action-item.person .text {
         display: none;
     }
 
-    .message-item:hover .action-item.person {
+    .message-item:hover .action-item.person .text {
         display: inline-block;
+        position: absolute;
     }
 
     /*******/
@@ -150,5 +151,32 @@
             onkeypress="onTextInput(event);" placeholder="Type a message..."></label>
 </body>
 <script>
-
+    function message(text, isCurrentUser=true, isSamePerson=false) {
+        const currentUser = isCurrentUser ? "is-current-user" : '';
+        const samePerson = isSamePerson ? "same-person" : '';
+        return `
+        <div class="message-item ${samePerson} ${currentUser} div">
+                <div class="action-item person Betty Ford connect_person div"
+                    onclick="actionClick(this, 'Betty Ford','connect_person','3')">
+                    <div class="icon-frame div"><img class="icon" src="images/faces/face3.png"></div>
+                    <div class="text wc-1 undefined div">Betty Ford</div>
+                </div>
+                <div class="message-text div">${text}</div>
+            </div>
+        `;
+    }
+    function addMessage(text, isCurrentUser) {
+        const parent = document.getElementsByClassName("message-panel")[0];
+        const input = document.getElementsByClassName("input-message")[0];
+        parent.innerHTML += message(text, isCurrentUser);
+    }
+    function onTextInput(e) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            addMessage(event.target.value, true)
+            event.target.value = "";
+            return false;
+        }
+    }
+    addMessage("Demo", false);
 </script>
