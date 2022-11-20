@@ -1,182 +1,28 @@
-<style>
-    div {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        box-sizing: border-box;
-    }
-
-    .action-item.person .text {
-        display: none;
-    }
-
-    .message-item:hover .action-item.person .text {
-        display: inline-block;
-        position: absolute;
-    }
-
-    /*******/
-    .message-item {
-        flex-direction: row;
-    }
-
-    .message-item.is-current-user {
-        flex-direction: row-reverse;
-        gap: 5em;
-    }
-
-    .message-item.same-person {
-        margin-top: -8px;
-    }
-
-    .message-item .circle {
-        flex-direction: row;
-        font-size: 8pt;
-        gap: 0.25em;
-        height: 24px;
-        padding-right: 0;
-    }
-
-    /*******/
-
-    .dialog .profile>.action-item.person .text,
-    .dialog .message-item .text,
-    .dialog .profile>.person-icon .text {
-        display: block;
-        opacity: 1;
-        visibility: visible;
-        max-height: 10em;
-        max-width: 10em;
-    }
-
-    .dialog .search .action-item.person .text {
-        display: none;
-    }
-
-    .message-item .message-text,
-    .message-item-sender .message-text {
-        flex-direction: column;
-        font-size: 11px;
-        gap: 0.25em;
-        /* background: white; */
-        background: #CAF2FF;
-        border: 1px solid #BAE2EF;
-        margin: 0 30px 0 15px;
-        padding: .75em;
-        border-radius: .75em .75em .75em 0;
-        color: #000000CC;
-        box-shadow: none;
-        text-shadow: none;
-        text-align: justify;
-    }
-
-    .message-item.is-current-user .message-text {
-        background: #F0DCFF;
-        border: 1px solid #E0CCEF;
-        margin: 0 15px 0 30px;
-        border-radius: .75em .75em 0 .75em;
-    }
-
-    /*noinspection CssUnusedSymbol*/
-    .page.connect_chat .person.connect_person {
-        display: none;
-    }
-</style>
-
+<head>
+    <link rel="stylesheet" href="main.css">
+</head>
 <body>
-    <div class="content-panel  div">
-        <div class="message-panel div">
-            <div class="message-item  is-current-user div">
-                <div class="action-item person Ruby Red connect_person div"
-                    onclick="actionClick(this, 'Ruby Red','connect_person','1')">
-                    <div class="icon-frame div"><img class="icon" src="images/faces/face1.png"></div>
-                    <div class="text wc-1 undefined div">Ruby Red</div>
-                </div>
-                <div class="message-text div">Hey girl welcome!</div>
-            </div>
-            <div class="message-item   div">
-                <div class="action-item person Betty Ford connect_person div"
-                    onclick="actionClick(this, 'Betty Ford','connect_person','3')">
-                    <div class="icon-frame div"><img class="icon" src="images/faces/face3.png"></div>
-                    <div class="text wc-1 undefined div">Betty Ford</div>
-                </div>
-                <div class="message-text div">Hi! Thanks for the invite</div>
-            </div>
-            <div class="message-item  is-current-user div">
-                <div class="action-item person Ruby Red connect_person div"
-                    onclick="actionClick(this, 'Ruby Red','connect_person','1')">
-                    <div class="icon-frame div"><img class="icon" src="images/faces/face1.png"></div>
-                    <div class="text wc-1 undefined div">Ruby Red</div>
-                </div>
-                <div class="message-text div">So... I have a long weekend in 2 weeks. Thinkin' of taking that trip to
-                    Santa Barbara I have been telling you about.</div>
-            </div>
-            <div class="message-item same-person is-current-user div">
-                <div class="action-item person Ruby Red connect_person div"
-                    onclick="actionClick(this, 'Ruby Red','connect_person','1')">
-                    <div class="icon-frame div"><img class="icon" src="images/faces/face1.png"></div>
-                    <div class="text wc-1 undefined div">Ruby Red</div>
-                </div>
-                <div class="message-text div">What do you think? Wanna join me?</div>
-            </div>
-            <div class="message-item   div">
-                <div class="action-item person Betty Ford connect_person div"
-                    onclick="actionClick(this, 'Betty Ford','connect_person','3')">
-                    <div class="icon-frame div"><img class="icon" src="images/faces/face3.png"></div>
-                    <div class="text wc-1 undefined div">Betty Ford</div>
-                </div>
-                <div class="message-text div">I don't have a long weekend :(</div>
-            </div>
-            <div class="message-item same-person  div">
-                <div class="action-item person Betty Ford connect_person div"
-                    onclick="actionClick(this, 'Betty Ford','connect_person','3')">
-                    <div class="icon-frame div"><img class="icon" src="images/faces/face3.png"></div>
-                    <div class="text wc-1 undefined div">Betty Ford</div>
-                </div>
-                <div class="message-text div">BUT I can join you on Saturday and Sunday</div>
-            </div>
-            <div class="message-item same-person  div">
-                <div class="action-item person Betty Ford connect_person div"
-                    onclick="actionClick(this, 'Betty Ford','connect_person','3')">
-                    <div class="icon-frame div"><img class="icon" src="images/faces/face3.png"></div>
-                    <div class="text wc-1 undefined div">Betty Ford</div>
-                </div>
-                <div class="message-text div">??</div>
-            </div>
-        </div>
-    </div>
-    <label class="input-message label"><input class="message-input" name="message-input" type="text"
+    <div class="content-panel">
+        <div class="message-panel"></div>
+        <label class="input-message label"><input class="message-input" name="message-input" type="text"
             onkeypress="onTextInput(event);" placeholder="Type a message..."></label>
+    </div>
 </body>
+<script src="data.js"></script>
+<script src="messages.js"></script>
 <script>
-    function message(text, isCurrentUser=true, isSamePerson=false) {
-        const currentUser = isCurrentUser ? "is-current-user" : '';
-        const samePerson = isSamePerson ? "same-person" : '';
-        return `
-        <div class="message-item ${samePerson} ${currentUser} div">
-                <div class="action-item person Betty Ford connect_person div"
-                    onclick="actionClick(this, 'Betty Ford','connect_person','3')">
-                    <div class="icon-frame div"><img class="icon" src="images/faces/face3.png"></div>
-                    <div class="text wc-1 undefined div">Betty Ford</div>
-                </div>
-                <div class="message-text div">${text}</div>
-            </div>
-        `;
+    function addMessage(text, isCurrentUser=true, isSamePerson=false, who="", when=new Date()) {
+    const parent = document.getElementsByClassName("message-panel")[0];
+    const input = document.getElementsByClassName("input-message")[0];
+    parent.innerHTML += message(text, isCurrentUser, isSamePerson, who, when);
+}
+function onTextInput(e) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        addMessage(event.target.value, true, false, "Me", new Date());
+        event.target.value = "";
+        return false;
     }
-    function addMessage(text, isCurrentUser) {
-        const parent = document.getElementsByClassName("message-panel")[0];
-        const input = document.getElementsByClassName("input-message")[0];
-        parent.innerHTML += message(text, isCurrentUser);
-    }
-    function onTextInput(e) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            addMessage(event.target.value, true)
-            event.target.value = "";
-            return false;
-        }
-    }
-    addMessage("Demo", false);
+}
+addMessage("Demo", false,false, "Betty Ford", new Date());
 </script>
