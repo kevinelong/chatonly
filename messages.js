@@ -2,17 +2,17 @@
 class MessagesView{
 
     currentUser = "Me";
+    recentUser = "Me";
     isSamePerson = false;
 
-    constructor(container, textInput){
+    constructor(container){
         this.container = container;
-        this.textInput = textInput;
-        this.textInput.addEventListener("keyup", this.onTextInput);
     }
 
     makeMessage(text, who="", when=undefined) {
-        this.isSamePerson = this.currentUser == who;
-        this.currentUser = who;
+        this.isSamePerson = this.recentUser == who;
+        this.isCurrentUser = this.currentUser == who;
+        this.recentUser = who;
         when = when ? when : new Date();
         const time = when.toLocaleTimeString();
         const currentUser = this.isCurrentUser ? "is-current-user" : '';
@@ -31,15 +31,7 @@ class MessagesView{
     }
 
     addMessage(text, who="") {
-        this.container.innerHTML += this.makeMessage(text, who, when);
+        this.container.innerHTML += this.makeMessage(text, who);
     }
 
-    onTextInput(e) {
-        if (e.keyCode === 13) {
-            e.preventDefault();
-            mv.addMessage(e.target.value, "Me");
-            e.target.value = "";
-            return false;
-        }
-    }
 }

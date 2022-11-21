@@ -4,24 +4,15 @@
 <body>
     <div class="content-panel">
         <div class="message-panel"></div>
-        <label class="input-message label"><input class="message-input" name="message-input" type="text"
-            onkeypress="onTextInput(event);" placeholder="Type a message..."></label>
+        <label class="input-message label">
+            <input class="message-input"
+                   name="message-input"
+                   type="text"
+                   placeholder="Type a message...">
+        </label>
     </div>
 </body>
 <script src="data.js"></script>
 <script src="messages.js"></script>
-<script>
-
-const mv = new MessagesView(
-    document.getElementsByClassName("message-panel")[0],
-    document.getElementsByClassName("input-message")[0]
-);
-
-function testMessageView(){
-    mv.addMessage("Hello?", "Me");
-    mv.addMessage("Anyone there?", "Me");
-    mv.addMessage("What's up doc?", "Betty Ford");
-    mv.addMessage("Where you at?", "Betty Ford");
-}
-testMessageView();
-</script>
+<script src="api.js"></script>
+<script type="module" src="main.js"></script>
